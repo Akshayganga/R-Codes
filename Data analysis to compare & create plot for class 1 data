@@ -1,0 +1,38 @@
+"assessment_scores <- read_excel(""F:/R_Projects/Mnji I.xlsx"")
+)
+
+assessment_scores <- data.frame(
+  Module = rep(c(""Letter Sounds"", ""Passage Accuracy"", ""Passage Comprehension"", 
+                 ""Passage Fluency"", ""Write Sentence"", ""Phonemic Awareness""), each = 2),
+  Assessment = rep(c(""Baseline"", ""Final""), times = 6),
+  Score = c(43.342, 98.171,  # Letter Sounds
+            37.914, 93.257,  # Passage Accuracy
+            19.600, 85.714,  # Passage Comprehension
+            46.257, 69.828,  # Passage Fluency
+            51.428, 97.142,  # Write Sentence
+            22.171, 93.400)  # Phonemic Awareness
+)
+
+assessment_scores$Assessment <- factor(assessment_scores$Assessment, 
+                                       levels = c(""Baseline"", ""Midterm"", ""Final""))
+custom_colors <- c(""Baseline"" = ""#E74C3C"",  # Red
+                   ""Midterm"" = ""#34495E"",  # Navy Blue
+                   ""Final"" = ""#27AE60"")    # Dark Green
+
+ggplot(assessment_scores, aes(x = Module, y = Score, fill = Assessment)) + 
+  geom_bar(stat = ""identity"", position = position_dodge(width = 0.7)) +  # Group bars side by side
+  theme_minimal(base_size = 14) +  # Minimal theme with larger text
+  labs(title = ""Manjeri Class 1"", x = NULL, y = NULL) +  # Remove axis titles
+  scale_fill_manual(values = custom_colors) +  # Custom colors for assessments
+  theme(
+    plot.title = element_text(hjust = 0.5, face = ""bold""),  # Center the title
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate x-axis labels
+    panel.grid.major = element_line(color = ""gray90""),  # Add major grid lines
+    panel.grid.minor = element_line(color = ""gray95""),  # Add minor grid lines
+    panel.background = element_rect(fill = ""white"", colour = ""white""),  # White background
+    legend.position = ""bottom"",  # Move legend to bottom
+    legend.title = element_blank()  # Remove legend title
+  )
+
+
+"
